@@ -100,7 +100,9 @@ public class GoogleComputeEngineHttpApiModule extends HttpApiModule<GoogleComput
                  public String apply(Credentials in) {
                     checkState(in.identity.indexOf("@") != 1,
                             "identity should be in project_id@developer.gserviceaccount.com format");
-                    Project project = api.getProjectApi().get(Iterables.get(Splitter.on("@").split(in.identity), 0));
+                    String projectName = Iterables.get(Splitter.on("@").split(in.identity), 0);
+                    projectName = Iterables.get(Splitter.on("-").split(projectName), 0);
+                    Project project = api.getProjectApi().get(projectName);
                     return project.getName();
                  }
               }, creds), seconds, TimeUnit.SECONDS);
