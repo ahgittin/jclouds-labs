@@ -78,7 +78,7 @@ public class OAuthModule extends AbstractModule {
       // bit before the deadline to make sure there aren't session expiration exceptions
       sessionIntervalInSeconds = sessionIntervalInSeconds > 30 ? sessionIntervalInSeconds - 30 :
               sessionIntervalInSeconds;
-      return CacheBuilder.newBuilder().expireAfterWrite(sessionIntervalInSeconds, TimeUnit.MINUTES).build(CacheLoader
+      return CacheBuilder.newBuilder().expireAfterWrite(sessionIntervalInSeconds, TimeUnit.SECONDS).build(CacheLoader
               .from(getAccess));
    }
 
